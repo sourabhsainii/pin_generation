@@ -28,7 +28,7 @@ The `product` entity used in the repository contains the following attributes:
 - id: str = Unique identifier
 - name: str = Mandatory product name
 - description: str = Optional product description
-- createDate: str = Creation date of the product in ISO 8601 format
+- createDate: str = Creation date of the product in ISO 8601 formatw
 - lastUpdateDate: str = Last update date of the product in ISO 8601 format
 
 ### API operations

@@ -13,5 +13,3 @@ class Group(Base):
     name = Column(String(80), nullable=True, unique=True)
     description = Column(String(255),nullable=False)
     active = Column(Boolean, nullable=False,default=False)
-
-

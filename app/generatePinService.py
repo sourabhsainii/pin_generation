@@ -11,34 +11,43 @@ class generatePinService():
             self,
             request:PinGenerateRequest
     ):
-        print("request::::::: ", request["group_id"])
-        group_id = request['group_id']
+        print("request::::::: ", request["applicationId"])
+        group_id = request['applicationId']
         # entity = request['entity']
 
+        # extracting last three characters from the ApplicationID
+        application_id = str(group_id)[-3:]
+
+        # Create a String of Alpha numeric characters by concatenating ASCII and numbers
         alphanumeric_characters = string.ascii_letters + string.digits
 
+        # generating random characters by choosing a random char from alphanumeric_characters with length 6
         random_characters = ''.join(random.choice(alphanumeric_characters) for _ in range(5))
 
+        # randomly choosing a special char
         special_character = random.choice('!@#$%^&*')
 
+        # generating a random index for special char to place anywhere in the random_characters
         index_to_insert = random.randint(0, len(random_characters))
 
-        pin = str(group_id) + '_' + random_characters[:index_to_insert] + special_character+ random_characters[index_to_insert:]
+        # finally concatenating application_id/group_id with above variables to get PIN
+        pin = application_id + '_' + random_characters[:index_to_insert] + special_character+ random_characters[index_to_insert:]
 
-        print("Generated PIN:", pin)
+        print("generatePin:: pin", pin)
 
-        data = {**request,"pin":pin,"group_id":group_id}
-        # data["pin"] = pin
+        data = {"pin":pin,"group_id":group_id}
 
-        print('data::::::::: ', data)
+        return data
 
-        pin = self.saveGeneratePin(data)
-
-        db =  intializeDB.createEngine()
+    def saveToDB(self,data):
+        dbSession =  intializeDB.createDBSession()
 
         db_pin = Pin(**data)
-        db.add(db_pin)
-        db.commit()
-        db.refresh(db_pin)
+        dbSession.add(db_pin)
+        dbSession.commit()
+        dbSession.refresh(db_pin)
 
-        return pin
+        # closing the DB session
+        dbSession.close()
+
+        return data["pin"]

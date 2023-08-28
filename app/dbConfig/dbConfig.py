@@ -7,7 +7,7 @@ load_dotenv()
 
 
 class intializeDB():
-    def createEngine():
+    def createDBSession():
         dbStr = ""+os.environ.get("DB_DAILECT")+"://"+os.environ.get("DB_USER")+":"+os.environ.get("DB_PASS")+"@"+os.environ.get("DB_HOST")+":"+os.environ.get("DB_PORT")+"/"+os.environ.get("DB_NAME")+""
         engine = create_engine(dbStr, echo=True)
         DBSession = sessionmaker(bind=engine)
