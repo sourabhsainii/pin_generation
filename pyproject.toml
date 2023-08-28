@@ -15,6 +15,9 @@ aws-cdk-lib = "2.29.0"
 constructs = "^10.0.108"
 python = ">3.8,<4.0.0"
 GitPython = "^3.1.30"
+sqlalchemy = "^2.0.20"
+mysqlclient = "^2.2.0"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 assertpy = "^1.1"
